@@ -42,15 +42,15 @@ document.querySelector('.video-bg').style.transform = `translateY(${scrolled * 0
 // Stock control (change numbers as needed)
 const stock = {
 'Chocolate Chip': 20,
-'Double Chocolate': 5,
-'Sugar Cookie': 2
-};
+'Double Stuff oreo Cookie': 5,
+'Hersheys cookies n creme': 2
+};'Smores Cookie'
 
 
 function updateStockUI() {
 document.getElementById('ccStock').textContent = stock['Chocolate Chip'] > 0 ? 'In Stock' : 'SOLD OUT';
-document.getElementById('dcStock').textContent = stock['Double Chocolate'] > 0 ? 'In Stock' : 'SOLD OUT';
-document.getElementById('scStock').textContent = stock['Sugar Cookie'] > 0 ? 'In Stock' : 'SOLD OUT';
+document.getElementById('dcStock').textContent = stock['Double Stuff Oreo'] > 0 ? 'In Stock' : 'SOLD OUT';
+document.getElementById('scStock').textContent = stock['Hersheys Cookies N Creme'] > 0 ? 'In Stock' : 'SOLD OUT';
 
 
 const flavorSelect = document.getElementById('flavor');
