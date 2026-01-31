@@ -76,24 +76,21 @@ const form = document.getElementById('orderForm');
 const message = document.getElementById('message');
 
 
+
 form.addEventListener('submit', function(e) {
-e.preventDefault();
+  e.preventDefault();
 
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const qty = document.getElementById('qty').value;
+  const payment = document.getElementById('payment').value;
+  const flavor = document.getElementById('flavor').value;
+  const school = document.getElementById('school').value;
+  const day = document.getElementById('day').value;
 
-}
+  const total = qty * 2;
 
-
-const name = document.getElementById('name').value;
-const email = document.getElementById('email').value;
-const qty = document.getElementById('qty').value;
-const payment = document.getElementById('payment').value;
-const flavor = document.getElementById('flavor').value;
-const total = qty * 2;
-const school = document.getElementById('school').value;
-const day = document.getElementById('day').value;
-
-
-const body = `New Cookie Order:%0D%0A
+  const body = `New Cookie Order:%0D%0A
 Name: ${name}%0D%0A
 Email: ${email}%0D%0A
 Quantity: ${qty}%0D%0A
@@ -103,18 +100,15 @@ Pickup Day: ${day}%0D%0A
 Payment Method: ${payment}%0D%0A
 Cookie Flavor: ${flavor}%0D%0A
 
-
 If Apple Pay was selected, customer was instructed to send payment to 202-873-0422.`;
 
+  window.location.href =
+    `mailto:luvz4himm@gmail.com?subject=Baked by Christy Order&body=${body}`;
 
-window.location.href = `mailto:luvz4himm@gmail.com?subject=Baked by Christy Order&body=${body}`;
-
-
-message.textContent = 'Order ready to send! Check your email app.';
-message.style.color = 'green';
+  message.textContent = 'Order ready to send! Check your email app.';
+  message.style.color = 'green';
 });
-</script>
 
 
 </body>
-</html>
+  </html>
