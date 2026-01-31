@@ -4,291 +4,247 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Baked by Christy</title>
-
-  <!-- Stripe -->
-  <script src="https://js.stripe.com/v3/"></script>
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --brown: #6b4f3f;
-      --khaki: #d8cfc4;
-      --cream: #fffaf5;
+      --khaki: #d6c7a1;
     }
-    body { margin:0; font-family:Poppins, sans-serif; background:var(--cream); color:var(--brown);}    
 
-    .hero { position:relative; height:100vh; overflow:hidden; }
-    .bg-video {
-      position:absolute;
-      top:50%; left:50%;
-      width:100%; height:100%;
-      object-fit:cover;
-      transform:translate(-50%, -50%);
-      z-index:-2;
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+    body {
+      color: var(--brown);
+      background: var(--khaki);
+      overflow-x: hidden;
     }
+
+    /* Background video */
+    .video-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      filter: brightness(0.6);
+    }
+
     .overlay {
-      position:absolute;
-      inset:0;
-      background:linear-gradient(rgba(107,79,63,0.55), rgba(216,207,196,0.55));
-      z-index:-1;
-    }
-    .hero-content {
-      height:100%;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      color:white;
-      padding:1rem;
-    }
-    .hero-content h1 {
-      font-size:clamp(2.5rem,5vw,4rem);
-      letter-spacing:2px;
-    }
-    .hero-content p {
-      font-size:1.2rem;
-      margin-top:0.75rem;
+      position: fixed;
+      inset: 0;
+      background: rgba(214,199,161,0.6);
+      z-index: -1;
     }
 
-    .corner { position:absolute; top:15px; right:15px; font-size:0.9rem; color:white; }
-    section { max-width:1100px; margin:auto; padding:4rem 1.5rem; }
-    .menu { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem; }
-    .card { background:#fff; border-radius:20px; padding:1.5rem; box-shadow:0 10px 20px rgba(0,0,0,0.08);}    
-    button { background:var(--brown); color:#fff; border:none; padding:0.6rem 1rem; border-radius:999px; cursor:pointer; }
-    .out { opacity:0.5; pointer-events:none; }
-    .admin { background:var(--khaki); border-radius:20px; padding:2rem; margin-top:4rem; }
+    header {
+      padding: 4rem 2rem;
+      text-align: center;
+      animation: fadeDown 1.2s ease;
+    }
 
-.transition-section {
-  position:relative;
-  height:70vh;
-  overflow:hidden;
-}
-.transition-video {
-  position:absolute;
-  top:50%; left:50%;
-  width:100%; height:100%;
-  object-fit:cover;
-  transform:translate(-50%, -50%);
-}
-.transition-overlay {
-  position:absolute;
-  inset:0;
-  background:linear-gradient(rgba(255,250,245,0.1), rgba(255,250,245,0.9));
-}
+    header h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      margin-top: 1rem;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: rgba(255,255,255,0.85);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      animation: fadeUp 1.2s ease;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .pop {
+      animation: pop 2s infinite alternate;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--khaki);
+      padding: 1.5rem;
+      border-radius: 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover { transform: translateY(-8px); }
+
+    form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    input, select, button {
+      padding: 0.8rem;
+      border-radius: 12px;
+      border: 2px solid var(--brown);
+      font-size: 1rem;
+    }
+
+    button {
+      background: var(--brown);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #52392d;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pop {
+      from { letter-spacing: 1px; }
+      to { letter-spacing: 4px; }
+    }
   </style>
 </head>
-<body onload="unlockAdmin()">
+<body>
 
-<header class="hero">
-  <video autoplay muted loop playsinline class="bg-video">
-    <source src="https://cdn.coverr.co/videos/coverr-baker-preparing-dough-6995/1080p.mp4" type="video/mp4">
+  <!-- Replace video src with your own baking video -->
+  <video class="video-bg" autoplay muted loop>
+    <source src="https://cdn.coverr.co/videos/coverr-baking-cookies-8540/1080p.mp4" type="video/mp4">
   </video>
   <div class="overlay"></div>
-  <div class="hero-content">
-    <h1>Baked by Christy</h1>
-    <p>Founded in 2025, Baked with love</p>
-  </div>
-  <div class="corner">Christiana Thompson & Kwame Thompson</div>
-</header>
 
-<section class="transition-section">
-  <video autoplay muted loop playsinline class="transition-video">
-    <source src="https://cdn.coverr.co/videos/coverr-putting-cookies-in-the-oven-9717/1080p.mp4" type="video/mp4">
-  </video>
-  <div class="transition-overlay"></div>
-</section>
+  <header>
+    <h1 class="pop">Baked by Christy</h1>
+    <p>Fresh, homemade cookies — baked with love 🤎</p>
+  </header>
 
-<section>
-  <h2>Our Cookies</h2>
+  <section>
+    <h2>How Ordering Works</h2>
+    <div class="grid">
+      <div class="card">🍪 Orders are <strong>placed on Sundays</strong> (Bake Day)</div>
+      <div class="card">📦 We sell only on <strong>Mondays, Wednesdays & Fridays</strong></div>
+      <div class="card">🏫 Pick up at <strong>Benjamin Tasker</strong> or <strong>Bowie High</strong></div>
+    </div>
+  </section>
 
-  <div id="statusBanner" style="background:#6b4f3f;color:white;padding:1rem 1.25rem;border-radius:16px;margin-bottom:2rem;text-align:center;font-weight:500"></div></h2>
+  <section>
+    <h2>Checkout</h2>
+    <p><strong>Price:</strong> $2 per cookie</p>
+    <form id="orderForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <input type="number" id="qty" placeholder="Number of Cookies" min="1" required />
 
-  <div style="background:#fff;border-radius:20px;padding:1.5rem;margin-bottom:3rem;box-shadow:0 10px 20px rgba(0,0,0,0.08)">
-    <h3>Order Details</h3>
-    <p><strong>Selling Days:</strong> Monday • Wednesday • Friday</p>
-    <p><strong>Delivery:</strong> Available every day</p>
+      <select id="school" required>
+        <option value="">Pickup Location</option>
+        <option>Benjamin Tasker</option>
+        <option>Bowie High</option>
+      </select>
 
-    <label>
-      <input type="radio" name="orderType" value="pickup" /> Pickup
-    </label><br><br>
+      <select id="day" required>
+        <option value="">Pickup Day</option>
+        <option>Monday</option>
+        <option>Wednesday</option>
+        <option>Friday</option>
+      </select>
 
-    <label>
-      <input type="radio" name="orderType" value="school" /> School Delivery
-    </label><br><br>
+      <select id="payment" required>
+        <option value="">Payment Method</option>
+        <option>Apple Pay</option>
+        <option>Cash</option>
+      </select>
 
-    <label for="daySelect"><strong>Select Order Day</strong></label><br>
-    <select id="daySelect" required>
-      <option value="">Choose a day</option>
-      <option value="Monday">Monday</option>
-      <option value="Wednesday">Wednesday</option>
-      <option value="Friday">Friday</option>
-    </select><br><br>
+      <button type="submit">Place Order</button>
+      <p id="message"></p>
+    </form>
 
-    <select id="schoolSelect" style="display:none">
-      <option value="">Select School (if delivery)</option>
-      <option value="Benjamin Tasker">Benjamin Tasker</option>
-      <option value="Bowie High School">Bowie High School</option>
-    </select>
-  </div>
-  <div class="menu" id="menu"></div>
-</section>
+    <div class="card" style="margin-top:1.5rem">
+      <h3>🍎 Apple Pay Instructions</h3>
+      <p>
+        Send payment via <strong>Apple Pay</strong> to:<br>
+        <strong>202-873-0422</strong><br><br>
+        Include your <strong>name + quantity</strong> in the note.
+      </p>
+    </div>
 
-<section class="admin" id="adminPanel" style="display:none">
-  <h3>Admin – Inventory & Orders Control</h3>
-  <p>Toggle items in or out of stock (only you should see this)</p>
-  <div id="adminControls"></div>
-</section>
+    <div class="card" style="margin-top:1rem">
+      <h3>💵 Cash Option</h3>
+      <p>Cash is accepted at pickup. Exact change preferred.</p>
+    </div>
+  </section>
 
-<section style="background:#fff;border-radius:20px;padding:2rem;margin-top:4rem;box-shadow:0 10px 20px rgba(0,0,0,0.08)">
-  <h3>Pickup Time</h3>
-  <select id="pickupTime">
-    <option value="">Select pickup time</option>
-    <option>8:00 AM – 9:00 AM</option>
-    <option>9:00 AM – 10:00 AM</option>
-    <option>10:00 AM – 11:00 AM</option>
-    <option>11:00 AM – 12:00 PM</option>
-  </select>
-</section>
+  <footer>
+    © 2026 Baked by Christy · bakedbychristy.com
+  </footer>
 
-<footer style="background:#6b4f3f;color:white;text-align:center;padding:2.5rem">
-  <div>Follow Our IG</div>
-  <div>IG – bakedbychristy</div>
-</footer>
+  <script>
+    const form = document.getElementById('orderForm');
+    const message = document.getElementById('message');
 
-<script>
-  // 🔐 Firebase config (REPLACE WITH YOUR OWN)
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-  };
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-
-  // 💳 Stripe (Apple Pay enabled in Stripe Dashboard)
-  const stripe = Stripe("YOUR_STRIPE_PUBLISHABLE_KEY");
-
-  const products = [
-    { id: "oreo", name: "Double Stuff Oreo", price: 300 },
-    { id: "chip", name: "Regular Chocolate Chip", price: 100 },
-    { id: "creme", name: "Hershey's Cookies n Creme", price: 300 }
-  ];
-
-  async function loadMenu() {
-    const menu = document.getElementById('menu');
-    const admin = document.getElementById('adminControls');
-    menu.innerHTML = admin.innerHTML = '';
-
-    for (let p of products) {
-      const doc = await db.collection('inventory').doc(p.id).get();
-      const inStock = doc.exists ? doc.data().inStock : true;
-
-      const card = document.createElement('div');
-      card.className = 'card' + (inStock ? '' : ' out');
-      card.innerHTML = `<h3>${p.name}</h3><p>$${(p.price/100).toFixed(2)}</p>`;
-
-      if (inStock) {
-        const btn = document.createElement('button');
-        btn.innerText = 'Pay with Apple Pay';
-        btn.onclick = () => checkout(p);
-        card.appendChild(btn);
-      } else {
-        card.innerHTML += '<p>Out of Stock</p>';
+      const today = new Date().getDay(); // 0 = Sunday
+      if (today !== 0) {
+        message.textContent = 'Orders can only be placed on Sundays (Bake Day).';
+        message.style.color = 'red';
+        return;
       }
-      menu.appendChild(card);
 
-      // Admin toggle
-      const toggle = document.createElement('button');
-      toggle.innerText = `${p.name}: ${inStock ? 'IN STOCK' : 'OUT OF STOCK'}`;
-      toggle.onclick = () => db.collection('inventory').doc(p.id).set({ inStock: !inStock });
-      admin.appendChild(toggle);
-    }
-  }
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const qty = document.getElementById('qty').value;
+      const payment = document.getElementById('payment').value;
+      const total = qty * 2;
+      const school = document.getElementById('school').value;
+      const day = document.getElementById('day').value;
 
-  function unlockAdmin() {
-    const pass = prompt('Enter admin password');
-    if (pass === 'bakedbychristy') {
-      document.getElementById('adminPanel').style.display = 'block';
-    }
-  }
+      const body = `New Cookie Order:%0D%0A
+Name: ${name}%0D%0A
+Email: ${email}%0D%0A
+Quantity: ${qty}%0D%0A
+Total: $${total}%0D%0A
+Pickup Location: ${school}%0D%0A
+Pickup Day: ${day}%0D%0A
+Payment Method: ${payment}%0D%0A
 
-  function updateUIRules() {
-    const today = new Date().getDay(); // 0 Sun
-    const sellingDays = [1,3,5]; // Mon Wed Fri
-    const banner = document.getElementById('statusBanner');
+If Apple Pay was selected, customer was instructed to send payment to 202-873-0422.`;
 
-    if (!sellingDays.includes(today)) {
-      banner.innerText = 'Orders are closed today 🤎 Next bake day is ' + nextBakeDay();
-      banner.style.opacity = '0.9';
-    } else {
-      banner.innerText = 'Taking orders today 🍪 Same‑day delivery available';
-    }
+      window.location.href = `mailto:luvz4himm@gmail.com?subject=Baked by Christy Order&body=${body}`;
 
-    document.querySelectorAll('input[name="orderType"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        const schoolSelect = document.getElementById('schoolSelect');
-        if (radio.value === 'school' && radio.checked) {
-          schoolSelect.style.display = 'block';
-        } else if (radio.value === 'pickup' && radio.checked) {
-          schoolSelect.style.display = 'none';
-          schoolSelect.value = '';
-        }
-      });
+      message.textContent = 'Order ready to send! Check your email app.';
+      message.style.color = 'green';
     });
-  }
-
-  function nextBakeDay() {
-    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    const today = new Date().getDay();
-    const bakeDays = [1,3,5];
-    for (let d of bakeDays) {
-      if (d > today) return days[d];
-    }
-    return 'Monday';
-  }
-
-  async function checkout(product) {
-    const orderType = document.querySelector('input[name="orderType"]:checked')?.value;
-    const school = document.getElementById('schoolSelect')?.value || 'N/A';
-
-    if (!orderType) {
-      alert('Please select delivery school or pickup option');
-      return;
-    }
-
-    const session = await fetch('/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        product,
-        orderType,
-        school
-      })
-    }).then(res => res.json());
-
-    // Send order summary email
-    fetch('/send-order-summary', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ product, orderType, school, orderDay })
-    });
-
-    stripe.redirectToCheckout({ sessionId: session.id });
-  },
-      body: JSON.stringify(product)
-    }).then(res => res.json());
-
-    stripe.redirectToCheckout({ sessionId: session.id });
-  }
-
-  loadMenu();
-  updateUIRules();
-</script>
+  </script>
 
 </body>
 </html>
